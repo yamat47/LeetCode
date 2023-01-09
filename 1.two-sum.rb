@@ -64,24 +64,14 @@
 # @param {Integer} target
 # @return {Integer[]}
 def two_sum(nums, target)
-  sorted_nums = nums.sort.reverse
+  map = {}
 
-  pairs = []
-
-  catch(:search) do
-    sorted_nums.each_with_index do |num, i|
-      sorted_nums.slice(i+1..).each_with_index do |num2, j|
-        if num + num2 == target
-          pairs = [num, num2]
-          throw(:search)
-        end
-      end
+  nums.each_with_index do |num, i|
+    if map.key?(target - num)
+      return [map[target - num], i]
     end
+
+    map[num] = i
   end
-
-  index1 = nums.index(pairs[0])
-  index2 = nums.each_index.find { |index| index != index1 && nums[index] == pairs[1] }
-
-  [index1, index2]
 end
 # @lc code=end
