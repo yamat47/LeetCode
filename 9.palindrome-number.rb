@@ -57,7 +57,17 @@
 # @param {Integer} x
 # @return {Boolean}
 def is_palindrome(x)
-  x.to_s == x.to_s.reverse
+  return false if x.negative?
+  return false if x % 10 == 0 && x != 0
+
+  reversed_number = 0
+
+  while x > reversed_number
+    reversed_number = reversed_number * 10 + x % 10
+    x /= 10
+  end
+
+  x == reversed_number || x == reversed_number / 10
 end
 # @lc code=end
 
