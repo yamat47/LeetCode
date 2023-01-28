@@ -60,30 +60,20 @@
 # @param {String} s
 # @return {Boolean}
 def is_valid(s)
-  chars = s.chars
-
-  return false if chars.size.odd?
-
-  open_brackets = []
-  chars.each do |char|
+  stacks = []
+  s.each_char do |char|
     case char
-    when '('
-      open_brackets << 'parentheses'
-    when '['
-      open_brackets << 'square'
-    when '{'
-      open_brackets << 'curly'
+    when '(', '[', '{'
+      stacks << char
     when ')'
-      open_brackets.last == 'parentheses' ? open_brackets.pop : raise(ArgumentError)
+      return false if stacks.pop != '('
     when ']'
-      open_brackets.last == 'square' ? open_brackets.pop : raise(ArgumentError)
+      return false if stacks.pop != '['
     when '}'
-      open_brackets.last == 'curly' ? open_brackets.pop : raise(ArgumentError)
+      return false if stacks.pop != '{'
     end
   end
 
-  open_brackets.size.zero? ? true : false
-rescue
-  false
+  stacks.empty?
 end
 # @lc code=end
